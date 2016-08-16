@@ -1,2 +1,2 @@
 # chrome-extension-buzzkill
-A browser extension that removes job posting buzzwords
+A chrome browser extension that removes or redefines job posting buzzwords

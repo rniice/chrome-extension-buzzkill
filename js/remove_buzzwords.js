@@ -1,11 +1,7 @@
 var buzzwords = null;
 loadBuzzwords();
 
-setTimeout(function(){
-  //alert(buzzwords);
-  removeBuzzwords();
-},200);
-
+/*Gathers Buzzword List and Definitions*/
 function loadBuzzwords(){
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function(){
@@ -21,9 +17,13 @@ function loadBuzzwords(){
   xhr.send();
 }
 
-//removes buzzwords from the DOM
-function removeBuzzwords(){
-  console.log("removing buzzwords: " + buzzwords);
+/*REMOVE OR REPLACE BUZZWORDS:
+  --if replace == false, removes buzzwords from the DOM
+  --if replace == true, redefines buzzwords from the DOM
+*/
+function removeBuzzwords(replace){
+  console.log("replace is: " + replace);
+  //console.log("removing buzzwords: " + buzzwords);
   var count = 0;  //total removal count
 
   var body = document.body;
@@ -50,21 +50,25 @@ function removeBuzzwords(){
   alert("squashed: " + count );
 }
 
-
+//escape regex specific characters if found in string
 function escapeRegExp(str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
 
+//generate regex query array from array of search strings
 function regexArrayGenerator(arr) {
   return arr.map(function(element){
       return new RegExp('(' + element.toString() + ')','gi');
   });
 }
 
+//generate regex query from single search string
 function regexCaptureGroup(capture_string) {
     return new RegExp('(' + capture_string.toString() + ')','g');
 }
 
+/*updates DOM element by modifying matched innerHTML in array of matches, then
+inserts that modified innerHTML to replace the previous innerHTML*/
 function updateBody(arr_matches, regex, replacement){
     var body_innerHTML = document.body.innerHTML;
 
@@ -72,5 +76,6 @@ function updateBody(arr_matches, regex, replacement){
         var new_body_innerHTML = arr_matches[i].replace(regex, replacement);
         document.body.innerHTML = document.body.innerHTML.replace(regexCaptureGroup(arr_matches[i]), new_body_innerHTML);
     }
-
 }
+
+//specify the replacement word based on what it really means
