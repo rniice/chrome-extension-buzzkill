@@ -4,7 +4,7 @@ loadBuzzwords();
 setTimeout(function(){
   //alert(buzzwords);
   removeBuzzwords();
-},1000);
+},200);
 
 function loadBuzzwords(){
   var xhr = new XMLHttpRequest();
@@ -23,58 +23,59 @@ function loadBuzzwords(){
 
 //removes buzzwords from the DOM
 function removeBuzzwords(){
-  var items = document.body.getElementsByTagName("*");
   console.log("removing buzzwords: " + buzzwords);
+  var count = 0;  //total removal count
 
-  var counter = 0;
-  for (var i = 0; i < items.length; i++) {
-      var element = items[i];
-      var element_innerHTML = element.innerHTML;     //get the element innerHTML
+  var body = document.body;
+  var regexOuter = /(>.*?<)/gi;
+  var regexInnerArray = regexArrayGenerator(buzzwords);
 
-      var regexOuter = /(>.*?<)/gi;
-      var regexInnerArray = regexArray(buzzwords);
-      var regexInner = /(dynamic)/gi;                 //array of all regexes to test for
-
-      var matched_regions = null;
-
-      for (var j=0; j<regexInnerArray.length; j++){
-          console.log(regexInnerArray[j]);
+  var matches = body.innerHTML.match(regexOuter);
+  for (var i=0; i<matches.length; i++){
+      if(matches[i]!=='><' ){
+          var inner_matches = [];
+          //console.log(matches[i]);
+          for (var j=0; j<regexInnerArray.length; j++){
+              //console.log(regexInnerArray[j]);
+              var inner_match_array = matches[i].match(regexInnerArray[j]);
+              //inner_matches.concat(inner_match_array);
+              //console.log(inner_match_array);
+              if(inner_match_array){
+                  updateBody(inner_match_array,regexInnerArray[j], "");
+                  count+=inner_match_array.length;
+              }
+          }
       }
 
-
-      while ((matched_regions = regexOuter.exec(element_innerHTML)) !== null) {
-          var local_counter = counter;
-          var possible_update = escapeRegExp(matched_regions[0]); //need to sanitize for characters not allowed in regex
-          var possible_update_regex = new RegExp(possible_update.toString(),'g');
-
-          var new_text = possible_update.replace(regexInner, 'DELETED');
-
-          element.innerHTML = element_innerHTML.replace( possible_update ,
-            function(){
-              local_counter++;
-              //console.log(local_counter);
-              return new_text;
-            }
-          );
-
-          //counter+=matches_found;
-      }
   }
 
   //update the contents of the counter div
-  var counter_element = document.body.getElementsByTagName("count_value");
-  //counter_element.innerHTML = counter;
-  //alert("squashed buzzwords: " + counter);
+  var counter_element = document.body.getElementsByTagName("count");
+  //ounter_element.innerHTML = "Buzzwords: " + count;
+  alert("squashed: " + count );
 }
+
 
 function escapeRegExp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
 
-function regexArray(arr) {
-  var result = arr.map(function(element){
+function regexArrayGenerator(arr) {
+  return arr.map(function(element){
       return new RegExp('(' + element.toString() + ')','gi');
   });
+}
 
-  return result;
+function regexCaptureGroup(capture_string) {
+    return new RegExp('(' + capture_string.toString() + ')','g');
+}
+
+function updateBody(arr_matches, regex, replacement){
+    var body_innerHTML = document.body.innerHTML;
+
+    for (var i=0; i<arr_matches.length; i++){
+        var new_body_innerHTML = arr_matches[i].replace(regex, replacement);
+        document.body.innerHTML = document.body.innerHTML.replace(regexCaptureGroup(arr_matches[i]), new_body_innerHTML);
+    }
+
 }

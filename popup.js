@@ -5,7 +5,7 @@
 
 function click(e) {
   chrome.tabs.executeScript(null, {file: "./js/remove_buzzwords.js"});
-  window.close();
+  //window.close();
 }
 
 document.addEventListener('DOMContentLoaded', function () {
