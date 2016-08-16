@@ -1,0 +1,25 @@
+{
+  "name": "BuzzKill",
+  "description": "A browser extension that removes job posting buzzwords",
+  "version": "1.0",
+  "permissions": [
+    "tabs", "http://*/*", "https://*/*"
+  ],
+  "web_accessible_resources": [
+      "js/buzzwords.json",
+      "css/style.css"
+  ],
+  "content_scripts": [
+     {
+        "matches":    ["http://www.google.com/*"],
+        "css":        ["css/style.css"],
+        "js":         ["js/remove_buzzwords.js"]
+     }
+  ],
+  "browser_action": {
+      "default_title": "Remove Job Posting Buzz Words.",
+      "default_icon": "icon.png",
+      "default_popup": "popup.html"
+  },
+  "manifest_version": 2
+}
