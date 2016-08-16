@@ -34,19 +34,14 @@ function removeBuzzwords(){
   for (var i=0; i<matches.length; i++){
       if(matches[i]!=='><' ){
           var inner_matches = [];
-          //console.log(matches[i]);
           for (var j=0; j<regexInnerArray.length; j++){
-              //console.log(regexInnerArray[j]);
               var inner_match_array = matches[i].match(regexInnerArray[j]);
-              //inner_matches.concat(inner_match_array);
-              //console.log(inner_match_array);
               if(inner_match_array){
                   updateBody(inner_match_array,regexInnerArray[j], "");
                   count+=inner_match_array.length;
               }
           }
       }
-
   }
 
   //update the contents of the counter div
@@ -57,7 +52,7 @@ function removeBuzzwords(){
 
 
 function escapeRegExp(str) {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
 
 function regexArrayGenerator(arr) {
