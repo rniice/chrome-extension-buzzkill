@@ -1,13 +1,13 @@
 {
-  "name": "BuzzKill",
-  "description": "A browser extension that removes job posting buzzwords",
-  "version": "1.0",
+  "name": "BuzzKill - Job Search Buzzword Squasher",
+  "description": "A chrome browser extension that removes job posting buzzwords",
+  "version": "0.0.0.1",
   "permissions": [
     "tabs", "http://*/*", "https://*/*"
   ],
   "web_accessible_resources": [
       "js/buzzwords.json",
-      "js/definitions.json",      
+      "js/definitions.json",
       "css/style.css"
   ],
   "content_scripts": [
