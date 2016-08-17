@@ -1,34 +1,49 @@
-var buzzwords = null;
-loadBuzzwords();
+var document_body_cache = document.body;
+var buzzword_data = {};
 
-/*Gathers Buzzword List and Definitions*/
-function loadBuzzwords(){
+var replace_selection = null;
+var refresh_needed = false;
+
+loadJSON('/js/buzzwords.json', 'buzzwords');      //load buzzword array
+loadJSON('/js/definitions.json', 'definitions');  //load definitions array
+
+
+/*Gathers Buzzword List & Definitions*/
+function loadJSON(path, dest){
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function(){
     if (xhr.readyState == 4) {
       if (xhr.status == 200 && xhr.readyState === XMLHttpRequest.DONE) { //only handle responses with defined text
         var data = xhr.responseText;
         var json_data = JSON.parse(data);
-        buzzwords = json_data;
+        buzzword_data[dest] = json_data;
       }
     }
   };
-  xhr.open("GET", chrome.extension.getURL('/js/buzzwords.json'), true);
+  xhr.open("GET", chrome.extension.getURL(path), true);
   xhr.send();
 }
 
-/*REMOVE OR REPLACE BUZZWORDS:
-  --if replace == false, removes buzzwords from the DOM
-  --if replace == true, redefines buzzwords from the DOM
-*/
-function removeBuzzwords(replace){
-  console.log("replace is: " + replace);
-  //console.log("removing buzzwords: " + buzzwords);
-  var count = 0;  //total removal count
 
+/*refreshes the document.body */
+function reloadDocumentBody(){
+  //document.body.innerHTML = document_body_cache.innerHTML;
+  window.location.reload();
+}
+
+/*REMOVE OR REPLACE BUZZWORDS: replace -> redefines; !replace -> removes */
+function removeBuzzwords(replace){
+  //console.log("replace is: " + replace);
+  //console.log("buzzwords are: "               + buzzword_data.buzzwords);
+  //console.log("buzzwords definitions are: "   + buzzword_data.definitions);
+
+  //updateRefreshBodyStatus(replace);
+
+  var count = 0;  //total removal count
   var body = document.body;
   var regexOuter = /(>.*?<)/gi;
-  var regexInnerArray = regexArrayGenerator(buzzwords);
+  var regexInnerArray = regexArrayGenerator(buzzword_data.buzzwords);
+  var replacementsInnerArray = buzzword_data.definitions;
 
   var matches = body.innerHTML.match(regexOuter);
   for (var i=0; i<matches.length; i++){
@@ -37,7 +52,11 @@ function removeBuzzwords(replace){
           for (var j=0; j<regexInnerArray.length; j++){
               var inner_match_array = matches[i].match(regexInnerArray[j]);
               if(inner_match_array){
-                  updateBody(inner_match_array,regexInnerArray[j], "");
+                  if(replace){
+                      updateBody(inner_match_array,regexInnerArray[j], replacementsInnerArray[j]);
+                  } else {
+                      updateBody(inner_match_array,regexInnerArray[j], "");
+                  }
                   count+=inner_match_array.length;
               }
           }
@@ -47,7 +66,7 @@ function removeBuzzwords(replace){
   //update the contents of the counter div
   var counter_element = document.body.getElementsByTagName("count");
   //ounter_element.innerHTML = "Buzzwords: " + count;
-  alert("squashed: " + count );
+  alert("buzzwords squashed: " + count );
 }
 
 //escape regex specific characters if found in string
