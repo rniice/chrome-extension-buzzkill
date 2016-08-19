@@ -4,7 +4,7 @@ function loadScripts(){
     chrome.tabs.executeScript(null, {file: "./js/remove_buzzwords.js"}, function(){
       chrome.tabs.executeScript(null,
         {code:
-          "var PageBuzzKillerInstance = new BuzzKill();"  //create a new BuzzKill Object
+          "var PageBuzzKillerInstance = new BuzzKillChromeExtension();"  //create a new BuzzKill Object
           + "PageBuzzKillerInstance.loadJSON('/js/buzzword_data.json');"  //load BuzzKill Data
         });
     });

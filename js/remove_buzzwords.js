@@ -1,4 +1,4 @@
-var BuzzKill = function BuzzKill(){
+function BuzzKillChromeExtension(){
   this.document_body_cache = document.body;
   this.buzzword_data = {};
   this.replace_selection = null;
@@ -6,7 +6,7 @@ var BuzzKill = function BuzzKill(){
 };
 
 /*Gathers Buzzword List & Definitions*/
-BuzzKill.prototype.loadJSON = function(path){
+BuzzKillChromeExtension.prototype.loadJSON = function(path){
   var xhr = new XMLHttpRequest();
 
   var that = this;  //getting local scope for callback function
@@ -25,7 +25,7 @@ BuzzKill.prototype.loadJSON = function(path){
 };
 
 /*Temporary Method to Break Data into Arrays REPLACE LATER!!*/
-BuzzKill.prototype.populateBuzzWordDataArrays = function(){
+BuzzKillChromeExtension.prototype.populateBuzzWordDataArrays = function(){
   var data_length = this.buzzword_data.length;
   this.buzzword_data.buzzwords = [];
   this.buzzword_data.definitions = [];
@@ -40,13 +40,13 @@ BuzzKill.prototype.populateBuzzWordDataArrays = function(){
 };
 
 /*refreshes the document.body */
-BuzzKill.prototype.reloadDocumentBody = function(){
+BuzzKillChromeExtension.prototype.reloadDocumentBody = function(){
   //document.body.innerHTML = document_body_cache.innerHTML;
   window.location.reload();
 };
 
 /*REMOVE OR REPLACE BUZZWORDS: replace -> redefines; !replace -> removes */
-BuzzKill.prototype.removeBuzzwords = function(replace){
+BuzzKillChromeExtension.prototype.removeBuzzwords = function(replace){
 
   //updateRefreshBodyStatus(replace);
   var count = 0;  //total removal count
@@ -80,25 +80,25 @@ BuzzKill.prototype.removeBuzzwords = function(replace){
 };
 
 //escape regex specific characters if found in string
-BuzzKill.prototype.escapeRegExp = function(str) {
+BuzzKillChromeExtension.prototype.escapeRegExp = function(str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 };
 
 //generate regex query array from array of search strings
-BuzzKill.prototype.regexArrayGenerator = function(arr) {
+BuzzKillChromeExtension.prototype.regexArrayGenerator = function(arr) {
   return arr.map(function(element){
       return new RegExp('(' + element.toString() + ')','gi');
   });
 };
 
 //generate regex query from single search string
-BuzzKill.prototype.regexCaptureGroup = function(capture_string) {
+BuzzKillChromeExtension.prototype.regexCaptureGroup = function(capture_string) {
     return new RegExp('(' + capture_string.toString() + ')','g');
 };
 
 /*updates DOM element by modifying matched innerHTML in array of matches, then
 inserts that modified innerHTML to replace the previous innerHTML*/
-BuzzKill.prototype.updateBody = function(arr_matches, regex, replacement) {
+BuzzKillChromeExtension.prototype.updateBody = function(arr_matches, regex, replacement) {
     var body_innerHTML = document.body.innerHTML;
 
     for (var i=0; i<arr_matches.length; i++){
