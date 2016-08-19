@@ -1,12 +1,19 @@
 var BuzzKill = function BuzzKill(body_data){
   this.document_body_cache = body_data;
   this.buzzword_data = {};
+
+  /*TEMPORARY*
+  this.buzzword_data.buzzwords = [];
+  this.buzzword_data.definitions = [];
+  this.buzzword_data.colors = [];
+  /*TEMPORARY*/
+
   this.replace_selection = null;
   this.refresh_needed = false;
 };
 
 /*Gathers Buzzword List & Definitions*/
-BuzzKill.prototype.loadJSON = function(path, dest){
+BuzzKill.prototype.loadJSON = function(path){
   var xhr = new XMLHttpRequest();
 
   var that = this;  //getting local scope for callback function
@@ -15,12 +22,28 @@ BuzzKill.prototype.loadJSON = function(path, dest){
       if (xhr.status == 200 && xhr.readyState === XMLHttpRequest.DONE) { //only handle responses with defined text
         var data = xhr.responseText;
         var json_data = JSON.parse(data);
-        that.buzzword_data[dest] = json_data;
+        that.buzzword_data = json_data;
+        that.populateBuzzWordDataArrays();         //temporary, break out the buzzword_data (temporary)
       }
     }
   };
   xhr.open("GET", chrome.extension.getURL(path), true);
   xhr.send();
+};
+
+/*Temporary Method to Break Data into Arrays REPLACE LATER!!*/
+BuzzKill.prototype.populateBuzzWordDataArrays = function(){
+  var data_length = this.buzzword_data.length;
+  this.buzzword_data.buzzwords = [];
+  this.buzzword_data.definitions = [];
+  this.buzzword_data.colors = [];
+
+  for (var i=0; i<data_length; i++) {
+    this.buzzword_data.buzzwords.push(this.buzzword_data[i].word);
+    this.buzzword_data.definitions.push(this.buzzword_data[i].definition);
+    this.buzzword_data.colors.push(this.buzzword_data[i].color);
+  }
+
 };
 
 /*refreshes the document.body */
@@ -43,7 +66,7 @@ BuzzKill.prototype.removeBuzzwords = function(replace){
   for (var i=0; i<matches.length; i++){
       if(matches[i]!=='><' ){
           var inner_matches = [];
-          for (var j=0; j<regexInnerArray.length; j++){
+          for (var j=0; j<regexInnerArray.length; j++){ //check each regex pattern generated from buzzword array
               var inner_match_array = matches[i].match(regexInnerArray[j]);
               if(inner_match_array){
                   if(replace){
@@ -95,5 +118,4 @@ BuzzKill.prototype.updateBody = function(arr_matches, regex, replacement) {
 
 //create a new BuzzKill Object
 var PageBuzzKillerInstance = new BuzzKill(document.body);
-PageBuzzKillerInstance.loadJSON('/js/buzzwords.json', 'buzzwords');      //load buzzword array
-PageBuzzKillerInstance.loadJSON('/js/definitions.json', 'definitions');  //load definitions array
+PageBuzzKillerInstance.loadJSON('/js/buzzword_data.json');      //load buzzword data

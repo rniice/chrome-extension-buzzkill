@@ -6,8 +6,7 @@
     "tabs", "http://*/*", "https://*/*"
   ],
   "web_accessible_resources": [
-      "js/buzzwords.json",
-      "js/definitions.json",
+      "js/buzzword_data.json",
       "css/style.css"
   ],
   "content_scripts": [

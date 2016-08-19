@@ -1,0 +1,112 @@
+[
+  {
+    "word": "passionate",
+    "definition": "{LONG-HOURS,LESS-PAY}",
+    "color": "red"
+  },{
+    "word": "dynamic",
+    "definition": "{SHIFTING-UNREALISTIC-TARGETS}",
+    "color": "red"
+  },{
+    "word": "cross-functional",
+    "definition": "{SELFLESS-PROMOTION-OF-OTHERS}",
+    "color": "red"
+  },{
+    "word": "ninja",
+    "definition": "{LURKING-CRAFTINESS-BRILLIANCE}",
+    "color": "red"
+  },{
+    "word": "rockstar",
+    "definition": "{MOTIVATING-BRILLIANCE}",
+    "color": "red"
+  },{
+    "word": "rock-star",
+    "definition": "{MOTIVATING-BRILLIANCE}",
+    "color": "red"
+  },{
+    "word": "rock star",
+    "definition": "{MOTIVATING-BRILLIANCE}",
+    "color": "red"
+  },{
+    "word": "results-oriented",
+    "definition": "{UNDERACHIEVERS-ON-TEAM}",
+    "color": "red"
+  },{
+    "word": "team-player",
+    "definition": "{OVERLY-COMPETITIVE-TEAM}",
+    "color": "red"
+  },{
+    "word": "detail-oriented",
+    "definition": "{INSISTENT-ABSOLUTE-PERFECTION}",
+    "color": "red"
+  },{
+    "word": "communication skills",
+    "definition": "{AWKWARD-WORK-ENVIRONMENT}",
+    "color": "red"
+  },{
+    "word": "works independently",
+    "definition": "{UNCLEAR-MANAGEMENT-DIRECTION}",
+    "color": "red"
+  },{
+    "word": "self-starter",
+    "definition": "{POORLY-CONCEIVED-PRODUCT}",
+    "color": "red"
+  },{
+    "word": "multitasking",
+    "definition": "{POORLY-CONCEIVED-ROLE}",
+    "color": "red"
+  },{
+    "word": "competitive salary",
+    "definition": "{MEDIOCRE-COMPENSATION}",
+    "color": "red"
+  },{
+    "word": "flexible",
+    "definition": "{LONG-HOURS,LESS-PAY}",
+    "color": "red"
+  },{
+    "word": "flexible-hours",
+    "definition": "{WORK-FROM-HOME}",
+    "color": "red"
+  },{
+    "word": "fast-paced",
+    "definition": "{POORLY-CONCEIVED-DEADLINES}",
+    "color": "red"
+  },{
+    "word": "growth-opportunity",
+    "definition": "{LONG-HOURS,LESS-PAY}",
+    "color": "red"
+  },{
+    "word": "self-motivated",
+    "definition": "{DESPERATE-FOR-WORK}",
+    "color": "red"
+  },{
+    "word": "motivated",
+    "definition": "{DESPERATE-FOR-WORK}",
+    "color": "red"
+  },{
+    "word": "interpersonal",
+    "definition": "{MICROSOFT-OFFICE-TEAM}",
+    "color": "red"
+  },{
+    "word": "wizard",
+    "definition": "{UNCANNY-BRILLIANCE}",
+    "color": "red"
+  },{
+    "word": "guru",
+    "definition": "{UNCANNY-BRILLIANCE}",
+    "color": "red"
+  },{
+    "word": "jedi",
+    "definition": "{NERDY-TEAM}",
+    "color": "red"
+  },{
+    "word": "superhero",
+    "definition": "{FIRST-RESPONDER}",
+    "color": "red"
+  },{
+    "word": "10x",
+    "definition": "{CORPORATE-LADDER-CLIMBER}",
+    "color": "red"
+  }
+
+]
