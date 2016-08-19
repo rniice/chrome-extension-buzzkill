@@ -1,13 +1,6 @@
-var BuzzKill = function BuzzKill(body_data){
-  this.document_body_cache = body_data;
+var BuzzKill = function BuzzKill(){
+  this.document_body_cache = document.body;
   this.buzzword_data = {};
-
-  /*TEMPORARY*
-  this.buzzword_data.buzzwords = [];
-  this.buzzword_data.definitions = [];
-  this.buzzword_data.colors = [];
-  /*TEMPORARY*/
-
   this.replace_selection = null;
   this.refresh_needed = false;
 };
@@ -115,7 +108,3 @@ BuzzKill.prototype.updateBody = function(arr_matches, regex, replacement) {
 };
 
 //specify the replacement word based on what it really means
-
-//create a new BuzzKill Object
-var PageBuzzKillerInstance = new BuzzKill(document.body);
-PageBuzzKillerInstance.loadJSON('/js/buzzword_data.json');      //load buzzword data
