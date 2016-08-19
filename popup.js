@@ -8,11 +8,11 @@ function loadScripts(){
 function click(e) {
   //alert("running: " + e.target.id);  if(e. then do this)
   if(e.target.id == "buzzkill"){
-    chrome.tabs.executeScript(null, {code: "removeBuzzwords(false)"});
+    chrome.tabs.executeScript(null, {code: "PageBuzzKillerInstance.removeBuzzwords(false)"});
   } else if(e.target.id == "buzzkill_redefine"){
-    chrome.tabs.executeScript(null, {code: "removeBuzzwords(true)"});
+    chrome.tabs.executeScript(null, {code: "PageBuzzKillerInstance.removeBuzzwords(true)"});
   } else if(e.target.id == "buzzkill_highlight"){
-    chrome.tabs.executeScript(null, {code: "highlightBuzzwords(true)"});
+    chrome.tabs.executeScript(null, {code: "PageBuzzKillerInstance.highlightBuzzwords(true)"});
   } else {
     alert("invalid selection");
   }
