@@ -63,7 +63,7 @@ BuzzKillChromeExtension.prototype.removeBuzzwords = function(replace){
               var inner_match_array = matches[i].match(regexInnerArray[j]);
               if(inner_match_array){
                   if(replace){
-                      this.updateBody(inner_match_array,regexInnerArray[j], replacementsInnerArray[j]);
+                      this.updateBody(inner_match_array,regexInnerArray[j], "<span class='highlight_buzzword'>" + replacementsInnerArray[j] + "</span>");
                   } else {
                       this.updateBody(inner_match_array,regexInnerArray[j], "");
                   }
@@ -72,6 +72,9 @@ BuzzKillChromeExtension.prototype.removeBuzzwords = function(replace){
           }
       }
   }
+
+  //update the color of the words tagged for highlighting
+  this.highlightBuzzwordResults();
 
   //update the contents of the counter div
   var counter_element = document.body.getElementsByTagName("count");
@@ -108,6 +111,14 @@ BuzzKillChromeExtension.prototype.highlightBuzzwords = function(){
   }
 
   //update the color of the words tagged for highlighting
+  this.highlightBuzzwordResults();
+
+  //alert(elements_to_highlight);
+  //ounter_element.innerHTML = "Buzzwords: " + count;
+  alert("buzzwords squashed: " + count );
+};
+
+BuzzKillChromeExtension.prototype.highlightBuzzwordResults = function() {
   var elements_to_highlight = document.getElementsByClassName("highlight_buzzword");
 
   //updating the styling on the elements selected for highlighting
@@ -117,12 +128,7 @@ BuzzKillChromeExtension.prototype.highlightBuzzwords = function(){
     elements_to_highlight.item(i).style["font-weight"]  = "bold";
 
   }
-
-  //alert(elements_to_highlight);
-  //ounter_element.innerHTML = "Buzzwords: " + count;
-  alert("buzzwords squashed: " + count );
-};
-
+}
 
 //escape regex specific characters if found in string
 BuzzKillChromeExtension.prototype.escapeRegExp = function(str) {
