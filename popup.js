@@ -19,7 +19,7 @@ function click(e) {
   } else if(e.target.id == "buzzkill_redefine"){
     chrome.tabs.executeScript(null, {code: "PageBuzzKillerInstance.removeBuzzwords(true);"});
   } else if(e.target.id == "buzzkill_highlight"){
-    chrome.tabs.executeScript(null, {code: "PageBuzzKillerInstance.highlightBuzzwords(true);"});
+    chrome.tabs.executeScript(null, {code: "PageBuzzKillerInstance.highlightBuzzwords();"});
   } else {
     alert("invalid selection");
   }

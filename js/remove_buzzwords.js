@@ -79,6 +79,51 @@ BuzzKillChromeExtension.prototype.removeBuzzwords = function(replace){
   alert("buzzwords squashed: " + count );
 };
 
+/*REMOVE OR REPLACE BUZZWORDS: replace -> redefines; !replace -> removes */
+BuzzKillChromeExtension.prototype.highlightBuzzwords = function(){
+
+  //updateRefreshBodyStatus(replace);
+  var count = 0;  //total removal count
+  var body = document.body;
+  var regexOuter = /(>.*?<)/gi;
+  var regexInnerArray = this.regexArrayGenerator(this.buzzword_data.buzzwords);
+  var replacementsInnerArray = this.buzzword_data.definitions;
+
+  var matches = body.innerHTML.match(regexOuter);
+  for (var i=0; i<matches.length; i++){
+      if(matches[i]!=='><' ){
+          var inner_matches = [];
+          for (var j=0; j<regexInnerArray.length; j++){ //check each regex pattern generated from buzzword array
+              var inner_match_array = matches[i].match(regexInnerArray[j]);
+              if(inner_match_array){
+                  //this.updateBody(inner_match_array,regexInnerArray[j], replacementsInnerArray[j]);
+
+                  for (var k=0; k<inner_match_array.length; k++){
+                    this.updateBody(inner_match_array,regexInnerArray[j], "<span class='highlight_buzzword'>" + inner_match_array[k] + "</span>");
+                  }
+                  count+=inner_match_array.length;
+              }
+          }
+      }
+  }
+
+  //update the color of the words tagged for highlighting
+  var elements_to_highlight = document.getElementsByClassName("highlight_buzzword");
+
+  //updating the styling on the elements selected for highlighting
+  for (var i=0; i<elements_to_highlight.length; i++) {
+    //var new_style = {color: "red", font-weight: "bold"};
+    elements_to_highlight.item(i).style.color           = "red";
+    elements_to_highlight.item(i).style["font-weight"]  = "bold";
+
+  }
+
+  //alert(elements_to_highlight);
+  //ounter_element.innerHTML = "Buzzwords: " + count;
+  alert("buzzwords squashed: " + count );
+};
+
+
 //escape regex specific characters if found in string
 BuzzKillChromeExtension.prototype.escapeRegExp = function(str) {
     return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
