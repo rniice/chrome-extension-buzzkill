@@ -7,6 +7,10 @@ A chrome browser extension that removes, redefines, or highlights job posting bu
 - replace
 - highlight
 
+## Screenshots
+
+![Highlight Function](https://github.com/rniice/chrome-extension-buzzkill/blob/master/screenshot_highlight_1280x800.png "Highlight Function")
+
 ## Download v0.0.0.4
 
 - [Chrome Web Store](https://chrome.google.com/webstore/detail/buzzkill-job-search-buzzw/pbbdpekldjnedmlfncgblfdipnncoagi)
